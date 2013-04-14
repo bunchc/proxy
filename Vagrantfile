@@ -1,5 +1,6 @@
 nodes = {
-    'proxy'   => [1, 110],
+    #'proxy'   => [1, 110],
+    'proxy2'   => [1, 110],
 }
 
 Vagrant.configure("2") do |config|
@@ -8,13 +9,12 @@ Vagrant.configure("2") do |config|
 
     nodes.each do |prefix, (count, ip_start)|
         count.times do |i|
-            #hostname = "%s-%02d" % [prefix, (i+1)]
             hostname = "%s" % [prefix, (i+1)]
 
             config.vm.define "#{hostname}" do |box|
                 box.vm.hostname = "#{hostname}.book"
-                box.vm.network :private_network, ip: "172.16.172.#{ip_start+i}", :netmask => "255.255.255.0"
-                box.vm.network :private_network, ip: "172.16.200.#{ip_start+i}", :netmask => "255.255.255.0"
+                box.vm.network :public_network
+		box.vm.network :private_network, ip: "172.16.172.#{ip_start+i}", :netmask => "255.255.255.0"
 
                 box.vm.provision :shell, :path => "#{prefix}.sh"
 
