@@ -1,8 +1,6 @@
 export DEBIAN_FRONTEND=noninteractive
 apt-get update && apt-get install -y squid
-
 rm /etc/squid3/squid.conf
-
 sudo tee /etc/squid3/squid.conf >/dev/null <<EOF
 acl manager proto cache_object
 acl localhost src 127.0.0.1/32 ::1
