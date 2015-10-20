@@ -1,8 +1,6 @@
 export DEBIAN_FRONTEND=noninteractive
 apt-get update && apt-get install -y squid
-
 rm /etc/squid3/squid.conf
-
 sudo tee /etc/squid3/squid.conf >/dev/null <<EOF
 acl manager proto cache_object
 acl localhost src 127.0.0.1/32 ::1
@@ -76,7 +74,7 @@ EOF
 
 service squid3 restart
 
-echo "Acquire::http::Proxy \"http://172.16.172.110:3128\";" | sudo tee /etc/apt/apt.conf
+echo "Acquire::http::Proxy \"http://128.199.172.66:3128\";" | sudo tee /etc/apt/apt.conf
 
 sudo apt-get install python-software-properties -y
 sudo add-apt-repository ppa:openstack-ubuntu-testing/grizzly-trunk-testing
